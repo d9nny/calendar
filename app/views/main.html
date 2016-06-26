@@ -1,0 +1,28 @@
+<section>
+  <div>
+    <button ng-click='main.prevWeek()'>Back</button>
+    <h2>{{main.days[0].month}}</h2>
+    <button ng-click='main.nextWeek()'>Forward</button>
+    <button ng-click='main.openCalendar()'>Fill</button>
+    <h1>{{main.days[0].year}}</h1>
+  </div>
+  <table class='table'>
+    <thead>
+      <tr>
+        <th ng-repeat="date in main.days">{{date.dayWord}} {{date.day}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td ng-repeat='event in main.events[main.date]'></td>
+        <td ng-repeat='event in main.events[main.date + 1]'></td>
+        <td ng-repeat='event in main.events[main.date + 2]'></td>
+        <td ng-repeat='event in main.events[main.date + 3]'></td>
+        <td ng-repeat='event in main.events[main.date + 4]'></td>
+        <td ng-repeat='event in main.events[main.date + 5]'></td>
+        <td ng-repeat='event in main.events[main.date + 6]'></td>
+      </tr> 
+    </tbody>
+  </table>
+</section>
+
