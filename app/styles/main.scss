@@ -10,82 +10,48 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
   padding: 0.2em 0;
 }
 
+$appFont: fantasy, cursive;
+
 body {
   padding: 0;
+  letter-spacing: 1px;
 }
 
-/* Everything but the jumbotron gets side spacing for mobile first views */
-.header,
-.marketing,
-.footer {
-  padding-left: 15px;
-  padding-right: 15px;
+button#openButton {
+  margin: 250px auto;
+  width: 250px;
+  height: 90px;
+  font-size: 30px; 
+  display: block;
+  font-family: $appFont;
 }
 
-/* Custom page header */
-.header {
-  border-bottom: 1px solid #e5e5e5;
-  margin-bottom: 10px;
+#calendarControlls {
 
-  /* Make the masthead heading the same height as the navigation */
-  h3 {
-    margin-top: 0;
-    margin-bottom: 0;
-    line-height: 40px;
-    padding-bottom: 19px;
-  }
-}
-
-/* Custom page footer */
-.footer {
-  padding-top: 19px;
-  color: #777;
-  border-top: 1px solid #e5e5e5;
-}
-
-.container-narrow > hr {
-  margin: 30px 0;
-}
-
-/* Main marketing message and sign up button */
-.jumbotron {
   text-align: center;
-  border-bottom: 1px solid #e5e5e5;
+  font-family: $appFont;
 
-  .btn {
-    font-size: 21px;
-    padding: 14px 24px;
+  button {
+    display: inline-block;
+    margin: 70px 50px;
+    border: none;
+    background-color: white;
+    font-size: 40px;
+    color: darkcyan;
+  }
+
+  h1 {
+    display: inline-block;
+    color: darkcyan;
+    font-size: 50px;
   }
 }
 
-/* Supporting marketing content */
-.marketing {
-  margin: 40px 0;
-
-  p + h4 {
-    margin-top: 28px;
-  }
-}
-
-/* Responsive: Portrait tablets and up */
-@media screen and (min-width: 768px) {
-  .container {
-    max-width: 730px;
-  }
-
-  /* Remove the padding we set earlier */
-  .header,
-  .marketing,
-  .footer {
-    padding-left: 0;
-    padding-right: 0;
-  }
-  /* Space out the masthead */
-  .header {
-    margin-bottom: 30px;
-  }
-  /* Remove the bottom border on the jumbotron for visual effect */
-  .jumbotron {
-    border-bottom: 0;
-  }
+th, td {
+  text-align: center;
+  color: indianred;
+  font-size: 18px;
+  font-family: -webkit-pictograph;
+  border-left: 1px solid darkcyan;
+  border-bottom: 1px solid darkcyan;
 }

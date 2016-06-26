@@ -1,15 +1,14 @@
 <section ng-if="!main.init">
-  <div>
-    <button ng-click='main.openCalendar()'>Fill</button>
+  <div id='openButtonContainer' class='container'>
+    <button id='openButton' class='btn btn-lg' ng-click='main.openCalendar()'>Open Calendar</button>
   </div>
 </section>
 
 <section ng-if="main.init">
-  <div>
-    <button ng-click='main.prevWeek()'>Back</button>
-    <h2>{{main.days[0].month}}</h2>
-    <button ng-click='main.nextWeek()'>Forward</button>
-    <h1>{{main.days[0].year}}</h1>
+  <div id='calendarControlls'>
+    <button ng-click='main.prevWeek()'><span class='glyphicon glyphicon-menu-left'></span></button>
+    <h1>{{main.days[0].month}} {{main.days[0].year}}</h1>
+    <button ng-click='main.nextWeek()'><span class='glyphicon glyphicon-menu-right'></span></button>
   </div>
   <table class='table'>
     <thead>
