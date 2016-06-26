@@ -6,7 +6,8 @@ describe('Controller: MainCtrl', function () {
   beforeEach(module('calendarApp'));
 
   var MainCtrl,
-    scope;
+    scope,
+    mockCalendarService;
 
   module(function($provide) {
     $provide.service('CalendarService', function() {
@@ -17,20 +18,34 @@ describe('Controller: MainCtrl', function () {
   });
 
   // Initialize the controller and a mock scope
-  beforeEach(inject(function ($controller, $rootScope) {
+  beforeEach(inject(function ($controller, $rootScope, CalendarService) {
     scope = $rootScope.$new();
     mockCalendarService = CalendarService;
-    MainCtrl = $controller('MainCtrl', {
-      $scope: scope,
-      mockCalendarService
-      // place here mocked dependencies
-    });
+    MainCtrl = $controller('MainCtrl', { $scope: scope }, mockCalendarService);
+    scope.$apply(); 
   }));
 
-  describe('openCalendar')
-  it('should call generateDays', function () {
-    spyOn(mockCalendarService,'generateDays');
-    scope.openCalendar();
-    expect(mockCalendarService.addBouquet).toHaveBeenCalled();
+  describe('openCalendar', function() {
+    it('should call generateDays', function () {
+      spyOn(mockCalendarService,'generateDays');
+      MainCtrl.openCalendar();
+      expect(mockCalendarService.generateDays).toHaveBeenCalled();
+    });
+  });
+
+  describe('nextWeek', function() {
+    it('should call nextWeek', function () {
+      spyOn(mockCalendarService,'nextWeek');
+      MainCtrl.nextWeek();
+      expect(mockCalendarService.nextWeek).toHaveBeenCalled();
+    });
+  });
+
+  describe('prevWeek', function() {
+    it('should call prevWeek', function () {
+      spyOn(mockCalendarService,'prevWeek');
+      MainCtrl.prevWeek();
+      expect(mockCalendarService.prevWeek).toHaveBeenCalled();
+    });
   });
 });

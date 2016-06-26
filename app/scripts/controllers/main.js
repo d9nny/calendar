@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('calendarApp')
-  .controller('MainCtrl', ['EventsEndpoint', 'CalendarService', '$http', '$resource', function (EventsEndpoint, CalendarService, $http, $resource) {
+  .controller('MainCtrl', ['EventsEndpoint', 'CalendarService', function (EventsEndpoint, CalendarService) {
   	var self = this;
    	// self.events = EventsEndpoint.retrieve,
   	self.calendar = CalendarService;
@@ -19,18 +19,5 @@ angular.module('calendarApp')
     self.prevWeek = function() {
       self.days = self.calendar.prevWeek();
     }
-
-      self.getBittylicious = function() {
-        return  $resource('http://assessments.bzzhr.net/calendar?format=json').get();
-      };
-
-      self.get =function() {
-        var bittyliciousObject = self.getBittylicious();
-        bittyliciousObject.$promise.then(function(data) {
-          console.log(data);
-          console.log(1);
-        });
-      };
-
 
   }]);
