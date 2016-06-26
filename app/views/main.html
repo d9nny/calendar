@@ -1,9 +1,14 @@
-<section>
+<section ng-if="!main.init">
+  <div>
+    <button ng-click='main.openCalendar()'>Fill</button>
+  </div>
+</section>
+
+<section ng-if="main.init">
   <div>
     <button ng-click='main.prevWeek()'>Back</button>
     <h2>{{main.days[0].month}}</h2>
     <button ng-click='main.nextWeek()'>Forward</button>
-    <button ng-click='main.openCalendar()'>Fill</button>
     <h1>{{main.days[0].year}}</h1>
   </div>
   <table class='table'>

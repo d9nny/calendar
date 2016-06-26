@@ -5,11 +5,15 @@ angular.module('calendarApp')
   	var self = this;
    	// self.events = EventsEndpoint.retrieve,
   	self.calendar = CalendarService;
+    self.init = false;
 
     console.log(self.events);
 
+
+
     self.openCalendar = function() {
       self.days = self.calendar.generateDays();
+      self.init = true;
     }
 
     self.nextWeek = function() {

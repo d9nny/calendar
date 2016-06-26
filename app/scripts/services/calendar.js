@@ -3,7 +3,7 @@
 angular.module('calendarApp')
   .service('CalendarService', function () {
   	var self = this;
-    self.days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday','Friday', 'Saturday'],
+    self.days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday','Friday', 'Saturday'];
     self.months = ['January', 'Febuary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   	self.date = new Date;
     self.shortDate = {'year': self.date.getFullYear(), 'month': self.date.getMonth(), 'day': self.date.getDate()};
