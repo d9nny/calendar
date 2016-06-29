@@ -1,7 +1,9 @@
-# calendar
+# Calendar
 
 This project is generated with [yo angular generator](https://github.com/yeoman/generator-angular)
 version 0.15.1.
+
+It's a calendar that receives events from an api and adds them to the calendar.
 
 ## Build & development
 
