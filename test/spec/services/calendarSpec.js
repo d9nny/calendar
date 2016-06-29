@@ -28,10 +28,10 @@ describe('Service: CalendarService', function() {
     calendarService.shortDate = {'year': 2016, 'month': 5, 'day': 26};
   }));
 
-  describe('generateDays', function() {
-    it('adds 7 day objects to the activeDates array', function() {
-      calendarService.generateDays();
-      expect(calendarService.activeDates.length).toEqual(7);
+  describe('getCurrentMonth', function() {
+    it('gets the current month', function() {
+      self.today = new Date(2016,6,29);
+      expect(calendarService.getCurrentMonth()).toEqual('Wednesday');
     });
   });
 

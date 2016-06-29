@@ -1,27 +1,29 @@
 'use strict';
 
 angular.module('calendarApp')
-  .controller('MainCtrl', ['EventsEndpoint', 'CalendarService', function (EventsEndpoint, CalendarService) {
+  .controller('MainCtrl', ['CalendarService', function (CalendarService) {
   	var self = this;
-   	// self.events = EventsEndpoint.retrieve,
   	self.calendar = CalendarService;
     self.init = false;
 
-    console.log(self.events);
-
-
-
     self.openCalendar = function() {
-      self.days = self.calendar.generateDays();
+      self.calendar.createWeek();
+      self.week = self.calendar.addEvents();
+      self.month = self.calendar.getCurrentMonth();
+      self.year = self.calendar.getCurrentYear();
       self.init = true;
     }
 
     self.nextWeek = function() {
-      self.days = self.calendar.nextWeek();
+      self.week = self.calendar.nextWeek();
     }
 
     self.prevWeek = function() {
-      self.days = self.calendar.prevWeek();
+      self.week = self.calendar.prevWeek();
+    }
+
+    self.getTime = function(date) {
+      return (new Date(date)).toTimeString().substr(0,5);
     }
 
   }]);

@@ -7,24 +7,25 @@
 <section ng-if="main.init">
   <div id='calendarControlls'>
     <button ng-click='main.prevWeek()'><span class='glyphicon glyphicon-menu-left'></span></button>
-    <h1>{{main.days[0].month}} {{main.days[0].year}}</h1>
+    <h1>{{main.month}} {{main.year}}</h1>
     <button ng-click='main.nextWeek()'><span class='glyphicon glyphicon-menu-right'></span></button>
   </div>
   <table class='table'>
     <thead>
       <tr>
-        <th ng-repeat="date in main.days">{{date.dayWord}} {{date.day}}</th>
+        <th ng-repeat="day in main.week">{{day.dayWord}} {{day.dayOfMonth}}</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td ng-repeat='event in main.events[main.date]'></td>
-        <td ng-repeat='event in main.events[main.date + 1]'></td>
-        <td ng-repeat='event in main.events[main.date + 2]'></td>
-        <td ng-repeat='event in main.events[main.date + 3]'></td>
-        <td ng-repeat='event in main.events[main.date + 4]'></td>
-        <td ng-repeat='event in main.events[main.date + 5]'></td>
-        <td ng-repeat='event in main.events[main.date + 6]'></td>
+        <td ng-repeat='day in main.week'>
+          <div class='event' ng-repeat='event in day.events'>
+            {{main.getTime(event.start)}}-{{main.getTime(event.end)}}
+            <br/>
+            {{event.label}}
+          </div>
+        </td>
+
       </tr> 
     </tbody>
   </table>

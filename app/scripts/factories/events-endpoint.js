@@ -3,7 +3,7 @@
 angular.module('calendarApp')
 .factory("EventsEndpoint", ['$http', function($http) {
 
-	var path = 'http://assessments.bzzhr.net/calendar?since=2016-06-26';
+	var path = 'https://assessments.bzzhr.net/calendar/';
 
 	return {
     retrieve: function() {

@@ -1,94 +1,83 @@
 'use strict';
 
 angular.module('calendarApp')
-  .service('CalendarService', function () {
+  .service('CalendarService', ['EventsEndpoint', function (EventsEndpoint) {
   	var self = this;
     self.days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday','Friday', 'Saturday'];
     self.months = ['January', 'Febuary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-  	self.date = new Date;
-    self.shortDate = {'year': self.date.getFullYear(), 'month': self.date.getMonth(), 'day': self.date.getDate()};
+    self.today = new Date();
+    self.week = [];
     
-    self.generateDays = function() {
-      self.activeDates = [];
-    
-      for(var i =0; i<7; i++) {
-        var newDate;
-        self.findDaysInMonth();
-        
-        if (i === 0) {
-          newDate = self.retrieveDate();
-        }
-        else if (self.endOfMonth()) { 
-          self.changeDay(1);
-          newDate = self.retrieveDate();
-        } else {
-          self.changeDay(- self.daysInMonth + 1);
-          self.changeMonth(1);
-          newDate = self.retrieveDate();
-        }
+    EventsEndpoint.retrieve()
+      .then(function(response) {
+        self.events = response.data;
+        console.log(self.events);
+      })
 
-        self.addDay(newDate);
-      }
-      return self.activeDates;
+    self.getCurrentMonth = function() {
+      return self.months[self.today.getMonth()];
     }
 
-    self.addDay = function(date) {
-      var dateObj = {};
+    self.getCurrentYear = function() {
+      return self.today.getFullYear();
+    }
 
-      dateObj['date'] = date;
-      dateObj['dayWord'] = self.days[ date.getDay()];
-      dateObj['day'] = date.getDate();
-      dateObj['month'] = self.months[date.getMonth()];
-      dateObj['year']  = date.getFullYear();
-      
-      self.activeDates.push(dateObj)
+    self.createWeek = function() {
+      var day = self.today.getDay(),
+          futureDays = 8 - day,
+          prevDays = day;
+
+      self.addDayToWeek(self.today);
+      self.addOtherDays(futureDays, 1);
+      self.addOtherDays(prevDays, -1);
+    }
+
+    self.addEvents = function() {
+      var start = (self.week[0]['date']).getTime(),
+          finish = self.week[6]['date'].getTime();
+
+      for (var i = 0; i < self.events.length; i++) {
+        var eventDate = (new Date(self.events[i]['start'])).getTime();
+        if ( eventDate >= start && eventDate <= finish ) {
+          var day = (new Date(self.events[i]['start'])).getDay();
+          (self.week[day]['events']).push(self.events[i]);
+        }
+      }
+      return self.week;
+    }
+
+    self.getDayObj = function(factor) {
+      return new Date(self.today.getTime() + factor*86400000);
+    }
+
+    self.addDayToWeek = function(day) {
+      var i = day.getDay(),
+          dateString = day.toDateString();
+
+      self.week[i] = { 'date': day, 'dateString': dateString, 'events': [], 
+                       'dayWord': self.days[i], 'dayOfMonth': day.getDate()};
+    }
+
+    self.addOtherDays = function(days, factor) {
+      for (var i = 1; i <= days; i++) {
+        self.addDayToWeek(self.getDayObj(factor*i))
+      };
+    }
+
+    self.retrieveDate = function(year, month, day) {
+      return new Date(year, month, day);
     }
 
     self.nextWeek = function() {
-      if (self.endOfMonth()) { 
-        self.changeDay(1);
-      } else {
-        self.changeDay(- self.daysInMonth + 1);
-        self.changeMonth(1);
-      }
-
-      return self.generateDays();
+      self.today = self.getDayObj(7);
+      self.createWeek();
+      return self.addEvents();
     }
 
     self.prevWeek = function() {
-      if (self.notBeforeStartOfMonth()) { 
-        self.changeDay(-13);
-      } else {
-        self.changeMonth(-1);
-        self.findDaysInMonth();
-        self.changeDay(self.daysInMonth + (self.shortDate.day - 13))
-      }
-
-      return self.generateDays();
+      self.today = self.getDayObj(-7);
+      self.createWeek();
+      return self.addEvents();
     }
 
-    self.findDaysInMonth = function() {
-      self.daysInMonth = new Date(self.shortDate.year, self.shortDate.month + 1, 0).getDate();
-    }
-
-    self.endOfMonth = function() {
-      return (self.shortDate.day + 1 <= self.daysInMonth)
-    }
-
-    self.notBeforeStartOfMonth = function() {
-      return (self.shortDate.day - 13 < 1)
-    }
-
-    self.changeDay = function(amount) {
-      self.shortDate.day += amount;
-    }
-
-    self.changeMonth = function(amount) {
-      self.shortDate.month += amount;
-    }
-
-    self.retrieveDate = function() {
-      return new Date(self.shortDate.year, self.shortDate.month, self.shortDate.day);
-    }
-
-  });
+  }]);
