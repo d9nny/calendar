@@ -1,6 +1,6 @@
 <section ng-if="!main.init">
   <div id='openButtonContainer' class='container'>
-    <button id='openButton' class='btn btn-lg' ng-click='main.openCalendar()'>Open Calendar</button>
+    <button id='openButton' class='btn btn-lg' ng-click='main.openCalendar(); main.addEvents()'>Open Calendar</button>
   </div>
 </section>
 

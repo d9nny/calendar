@@ -11,16 +11,7 @@ angular.module('calendarApp')
     EventsEndpoint.retrieve()
       .then(function(response) {
         self.events = response.data;
-        console.log(self.events);
-      })
-
-    self.getCurrentMonth = function() {
-      return self.months[self.today.getMonth()];
-    }
-
-    self.getCurrentYear = function() {
-      return self.today.getFullYear();
-    }
+      });
 
     self.createWeek = function() {
       var day = self.today.getDay(),
@@ -35,7 +26,6 @@ angular.module('calendarApp')
     self.addEvents = function() {
       var start = (self.week[0]['date']).getTime(),
           finish = self.week[6]['date'].getTime();
-
       for (var i = 0; i < self.events.length; i++) {
         var eventDate = (new Date(self.events[i]['start'])).getTime();
         if ( eventDate >= start && eventDate <= finish ) {
@@ -51,21 +41,14 @@ angular.module('calendarApp')
     }
 
     self.addDayToWeek = function(day) {
-      var i = day.getDay(),
-          dateString = day.toDateString();
-
-      self.week[i] = { 'date': day, 'dateString': dateString, 'events': [], 
-                       'dayWord': self.days[i], 'dayOfMonth': day.getDate()};
+      var i = day.getDay();
+      self.week[i] = { 'date': day, 'events': [], 'dayWord': self.days[i], 'dayOfMonth': day.getDate()};
     }
 
     self.addOtherDays = function(days, factor) {
       for (var i = 1; i <= days; i++) {
         self.addDayToWeek(self.getDayObj(factor*i))
       };
-    }
-
-    self.retrieveDate = function(year, month, day) {
-      return new Date(year, month, day);
     }
 
     self.nextWeek = function() {

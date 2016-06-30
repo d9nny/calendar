@@ -5,13 +5,17 @@ angular.module('calendarApp')
   	var self = this;
   	self.calendar = CalendarService;
     self.init = false;
+    self.months = ['January', 'Febuary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
     self.openCalendar = function() {
       self.calendar.createWeek();
-      self.week = self.calendar.addEvents();
-      self.month = self.calendar.getCurrentMonth();
-      self.year = self.calendar.getCurrentYear();
+      self.month = self.getCurrentMonth();
+      self.year = self.getCurrentYear();
       self.init = true;
+    }
+
+    self.addEvents = function() {
+      self.week = self.calendar.addEvents();
     }
 
     self.nextWeek = function() {
@@ -25,5 +29,14 @@ angular.module('calendarApp')
     self.getTime = function(date) {
       return (new Date(date)).toTimeString().substr(0,5);
     }
+
+    self.getCurrentMonth = function() {
+      return self.months[(new Date).getMonth()];
+    }
+
+    self.getCurrentYear = function() {
+      return (new Date).getFullYear();
+    }
+
 
   }]);
