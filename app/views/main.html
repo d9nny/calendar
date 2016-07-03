@@ -13,13 +13,13 @@
   <table class='table'>
     <thead>
       <tr>
-        <th ng-repeat="day in main.week">{{day.dayWord}} {{day.dayOfMonth}}</th>
+        <th ng-repeat="day in main.week">{{day.dayOfMonth}} <br/> {{day.dayWord}}</th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td ng-repeat='day in main.week'>
-          <div class='event' ng-repeat='event in day.events'>
+          <div class='event' ng-repeat='event in day.events' style="background-color:{{event.category}}">
             {{main.getTime(event.start)}}-{{main.getTime(event.end)}}
             <br/>
             {{event.label}}
